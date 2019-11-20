@@ -12,7 +12,7 @@ const NoMatch = lazy(() => import(/* webpackChunkName: "NoMatch" */ './NoMatch')
 const RenderRoute = () => {
   const location = useLocation(); // 注意：必须放到Router里面才能拿到location
   return (
-    <Suspense fallback={<div>loading</div>}>
+    <Suspense fallback={<div>loading...</div>}>
       <Switch location={location}>
         <PrivateRoute path="/" exact>
           <Home />

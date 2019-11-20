@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import http from './http';
 import logo from './logo.svg';
@@ -27,20 +27,26 @@ function Navbar() {
 }
 
 function Home() {
-  const fetchGithubData = () => {
-    // 远程访问数据也会缓存
-    fetch('https://api.github.com/users/adntin')
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(json) {
-        document.body.append(JSON.stringify(json));
-      });
-  };
+  const [loaded, setLoaded] = useState(false);
+  const [data, setData] = useState('');
 
   useEffect(() => {
-    fetchGithubData();
-  }, []);
+    const fetchGithubData = () => {
+      // 远程访问数据也会缓存
+      fetch('https://api.github.com/users/adntin')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(json) {
+          setLoaded(true);
+          setData(JSON.stringify(json, null, 2));
+        });
+    };
+
+    if (loaded === false) {
+      fetchGithubData();
+    }
+  }, [loaded]);
 
   return (
     <div>
@@ -58,6 +64,7 @@ function Home() {
         </li>
       </ul>
       <img src={logo} className="logo" alt="logo" />
+      <pre>{loaded ? data : 'fetching github data ...'}</pre>
     </div>
   );
 }
