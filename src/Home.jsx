@@ -51,7 +51,7 @@ function Home() {
   return (
     <div>
       <Navbar />
-      <p>Home555</p>
+      <p>Home</p>
       <ul>
         <li>
           <Link to="/product">Product Page</Link>
