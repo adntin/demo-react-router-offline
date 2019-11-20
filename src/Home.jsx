@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import http from './http';
 import logo from './logo.svg';
@@ -27,10 +27,25 @@ function Navbar() {
 }
 
 function Home() {
+  const fetchGithubData = () => {
+    // 远程访问数据也会缓存
+    fetch('https://api.github.com/users/adntin')
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(json) {
+        document.body.append(JSON.stringify(json));
+      });
+  };
+
+  useEffect(() => {
+    fetchGithubData();
+  }, []);
+
   return (
     <div>
       <Navbar />
-      <p>Home</p>
+      <p>Home555</p>
       <ul>
         <li>
           <Link to="/product">Product Page</Link>
