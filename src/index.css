@@ -10,4 +10,14 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+  color: red;
+}
+
+.logo {
+  height: 40vmin;
+}
+
+button {
+  background: #eee;
+  height: 30px;
 }
