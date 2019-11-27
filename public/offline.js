@@ -8,6 +8,9 @@ importScripts('/workbox-v4.3.1/workbox-sw.js');
 
 const now = Date.now();
 
+// 移除workbox日志
+// workbox.setConfig({ debug: false });
+
 // 添加静态资源到`precache`缓存，来自`/public/*`。剔除`index.html`，因为希望`index.html`是`runtime`缓存
 workbox.precaching.precacheAndRoute([
   { url: '/manifest.json', revision: now },
