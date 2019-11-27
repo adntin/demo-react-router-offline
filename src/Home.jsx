@@ -38,8 +38,13 @@ function Home() {
           return response.json();
         })
         .then(function(json) {
-          setLoaded(true);
           setData(JSON.stringify(json, null, 2));
+        })
+        .catch(function(error) {
+          setData(error.message);
+        })
+        .finally(function() {
+          setLoaded(true);
         });
     };
 

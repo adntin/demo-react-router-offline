@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
-// webpackPrefetch: true
 const Login = lazy(() => import(/* webpackChunkName: "Login" */ './Login'));
 const About = lazy(() => import(/* webpackChunkName: "About" */ './About'));
 const Home = lazy(() => import(/* webpackChunkName: "Home" */ './Home'));

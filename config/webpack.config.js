@@ -618,17 +618,26 @@ module.exports = function(webpackEnv) {
       // the HTML & assets that are part of the Webpack build.
       isEnvProduction &&
         new WorkboxWebpackPlugin.GenerateSW({
-          swDest: 'sw.js', // 注意：确保名称一致 navigator.serviceWorker.register
+          swDest: 'sw.js', // 注意：确保与`/src/service-worker.js`中`new Workbox('/sw.js')`名称一样，这个文件最终会生成在`/build/sw.js`
           importWorkboxFrom: 'local',
           clientsClaim: true,
+          // 1. 如果skipWaiting !== true，那么必须关闭浏览器所有tabs才能运行最新代码
+          // 2. 如果skipWaiting === true，立即把旧缓存资源清除，会导致之前旧跳转链接获取不到旧缓存资源，除非index.html能使用最新代码，才能确保依赖资源是最新的
           skipWaiting: true,
-          exclude: [/\.map/, /\.html/, /asset-manifest\.json/],
+          // `precache`缓存剔除webpack打包资源（所有）
+          exclude: [/\.map/, /\.html/, /asset-manifest\.json/], // 启用`runtime`缓存`html`，此处需要剔除`html`
+          // 只针对`precache`缓存有效，如果是`precache`缓存fallback，则必须指定`index.html`
+          // navigateFallback: publicUrl + '/index.html',
+          // 来自`/publich/offline.js`，用于处理`runtime`缓存fallback，以及处理`public/*`添加到`precache`缓存
+          importScripts: ['/offline.js'],
+          // `runtime`缓存
           runtimeCaching: [
             {
-              urlPattern: /\/$/,
+              // 在`/src/sw.js`需要默默下载`index.html`
+              urlPattern: /\.html/, // /\/$/
               handler: 'NetworkFirst',
               options: {
-                networkTimeoutSeconds: 1,
+                networkTimeoutSeconds: 2,
               },
             },
           ],
