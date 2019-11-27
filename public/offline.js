@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 // https://developers.google.com/web/tools/workbox/modules/workbox-precaching
 // https://developers.google.com/web/tools/workbox/modules/workbox-core
@@ -7,7 +8,7 @@ importScripts('/workbox-v4.3.1/workbox-sw.js');
 
 const now = Date.now();
 
-// 添加静态资源`precache`缓存，来自`/public/*`。剔除`index.html`，因为希望`index.html`是`runtime`缓存
+// 添加静态资源到`precache`缓存，来自`/public/*`。剔除`index.html`，因为希望`index.html`是`runtime`缓存
 workbox.precaching.precacheAndRoute([
   { url: '/manifest.json', revision: now },
   { url: '/favicon.ico', revision: now },
@@ -19,7 +20,7 @@ workbox.routing.registerRoute(
   new workbox.routing.NavigationRoute(async ({ url }) => {
     // 1. 第一次打开（没有缓存）时，不会执行以下脚本
     // 2. 此脚本用于处理`precache`缓存没有`index.html`的fallback
-    // 3. `runtime`缓存需要自己`/src/service-worker.js`默默请求`/index.html`路径
+    // 3. `runtime`缓存需要自己（人工）`/src/service-worker.js`默默请求`/index.html`路径
     // const cacheName = workbox.core.cacheNames.precache;
     // const cacheKey = workbox.precaching.getCacheKeyForURL('/index.html');
     const cacheName = workbox.core.cacheNames.runtime;

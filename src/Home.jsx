@@ -59,7 +59,7 @@ function Home() {
       <p>Home</p>
       <ul>
         <li>
-          <Link to="/product">Product Page</Link>
+          <Link to="/products">Product List Page</Link>
         </li>
         <li>
           <Link to="/about">About Page</Link>

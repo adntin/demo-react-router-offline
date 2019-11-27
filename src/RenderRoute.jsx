@@ -5,7 +5,7 @@ import PrivateRoute from './PrivateRoute';
 const Login = lazy(() => import(/* webpackChunkName: "Login" */ './Login'));
 const About = lazy(() => import(/* webpackChunkName: "About" */ './About'));
 const Home = lazy(() => import(/* webpackChunkName: "Home" */ './Home'));
-const Product = lazy(() => import(/* webpackChunkName: "Product" */ './Product'));
+const ProductList = lazy(() => import(/* webpackChunkName: "ProductList" */ './ProductList'));
 const NoMatch = lazy(() => import(/* webpackChunkName: "NoMatch" */ './NoMatch'));
 
 const RenderRoute = () => {
@@ -16,8 +16,8 @@ const RenderRoute = () => {
         <PrivateRoute path="/" exact>
           <Home />
         </PrivateRoute>
-        <PrivateRoute path="/product">
-          <Product />
+        <PrivateRoute path="/products">
+          <ProductList />
         </PrivateRoute>
         <Route path="/login">
           <Login />
