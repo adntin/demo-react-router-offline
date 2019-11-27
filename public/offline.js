@@ -17,7 +17,9 @@ workbox.precaching.precacheAndRoute([
 
 workbox.routing.registerRoute(
   new workbox.routing.NavigationRoute(async ({ url }) => {
-    // 第一次打开（没有缓存）时，不会执行以下脚本，`runtime`缓存需要自己默默请求`/`路径
+    // 1. 第一次打开（没有缓存）时，不会执行以下脚本
+    // 2. 此脚本用于处理`precache`缓存没有`index.html`的fallback
+    // 3. `runtime`缓存需要自己`/src/service-worker.js`默默请求`/index.html`路径
     // const cacheName = workbox.core.cacheNames.precache;
     // const cacheKey = workbox.precaching.getCacheKeyForURL('/index.html');
     const cacheName = workbox.core.cacheNames.runtime;

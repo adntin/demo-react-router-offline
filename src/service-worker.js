@@ -12,12 +12,12 @@ if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
 
     wb.addEventListener('activated', event => {
       console.log('[Service Worker] activated!', event);
-      // 获取首页URL，因为webpack.config.js中已经剔除index.html
+      // 1. 默默获取首页URL，因为webpack.config.js中已经剔除index.html
       const urlsToCache = [
         window.location.origin + '/index.html',
         // ...window.performance.getEntriesByType('resource').map(r => r.name),
       ];
-      // 将该URL列表发送到 serviceWorker 的路由器
+      // 2. 将该URL列表发送到 serviceWorker 的路由器
       wb.messageSW({
         type: 'CACHE_URLS',
         payload: { urlsToCache },
