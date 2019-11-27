@@ -47,10 +47,10 @@ workbox.routing.registerRoute(
     const cacheMatch = await cache.match(cacheKey);
     if (cacheMatch) {
       return cacheMatch;
-    } else if (networkResponse) {
-      return networkResponse;
-    } else {
-      throw networkError;
     }
+    if (networkResponse) {
+      return networkResponse;
+    }
+    return networkError;
   }),
 );
