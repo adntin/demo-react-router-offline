@@ -9,6 +9,9 @@ function ProductList() {
       <p>Product List</p>
       <ul>
         <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
           <Link to={`${url}/1`}>Product 1</Link>
         </li>
         <li>
